@@ -1,6 +1,51 @@
 {% extends 'website/base.html' %}
 
 {% block content %}
-<h1>Anasayfa</h1>
+
+<div class='col-md-6 offset-md-3'>
+    {% if messages %}
+            {% for message in messages %}
+                {% if message.error  %}
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% else %}
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endif %}
+                
+            {% endfor %}
+
+    {% endif %}
+
+    {% if user.is_authenticated %}
+        <h1>Hello</h1>
+    {% else %}
+        
+        
+        <h1>Login</h1>
+        <br/>
+        <form method="POST" action="{% url 'home' %}">
+            {% csrf_token %}
+            <form>
+                <div class="mb-3">
+                    <input type="text" class="form-control" name="username" placeholder="Username" required>
+                </div>
+                <div class="mb-3">
+                    <input type="password" class="form-control" name="password" placeholder="Password" required>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+
+        </form>
+    
+    {% endif %}
+
+</div>
+
 {% endblock content %}
 
