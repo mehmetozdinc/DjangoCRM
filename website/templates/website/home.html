@@ -3,23 +3,7 @@
 {% block content %}
 
 <div class='col-md-6 offset-md-3'>
-    {% if messages %}
-            {% for message in messages %}
-                {% if message.error  %}
-                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        {{ message }}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                {% else %}
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        {{ message }}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                {% endif %}
-                
-            {% endfor %}
-
-    {% endif %}
+    
 
     {% if user.is_authenticated %}
         <h1>Hello</h1>
@@ -30,7 +14,7 @@
         <br/>
         <form method="POST" action="{% url 'home' %}">
             {% csrf_token %}
-            <form>
+            
                 <div class="mb-3">
                     <input type="text" class="form-control" name="username" placeholder="Username" required>
                 </div>
@@ -39,7 +23,7 @@
                 </div>
                 
                 <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
+
 
         </form>
     

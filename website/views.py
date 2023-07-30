@@ -1,6 +1,7 @@
 from django.shortcuts import redirect, render
 from django.contrib.auth import authenticate,login,logout
 from django.contrib import messages
+from .forms import RegisterUserForm
 
 def home(request):
     if request.method == "POST":
@@ -20,4 +21,21 @@ def home(request):
 
 
 def logout_user(request):
-    pass
+    logout(request)
+    messages.success(request,"Başarılı bir şekilde çıkış gerçekleştirildi!!")
+    return redirect('home')
+
+def register_user(request):
+    if request.method == 'POST':
+        form = RegisterUserForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request,"Kayıt Başarılı! Lütfen Giriş Yapınız!!!")
+            return redirect('home')
+        else:
+            return render(request,'website/register.html',{'form':form})
+    else:
+        form = RegisterUserForm()
+        return render(request,'website/register.html',{'form':form})
+    
+    
