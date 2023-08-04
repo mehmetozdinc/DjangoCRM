@@ -18,8 +18,16 @@ def home(request):
             messages.error(request,"Bu işte bir terslik var!!!")
             return redirect('home')
     else:
-        return render(request,'website/home.html',{'records':records})
+        return render(request,'website/home.html',{})
+    
 
+def customer_list(request):
+    if request.user.is_authenticated:
+        records = Record.objects.all()
+        return render(request,'website/customer-list.html',{'records':records})
+    else:
+        messages.error(request,"lütfen Giriş Yapınız")
+        return redirect('home')
 
 
 def logout_user(request):
